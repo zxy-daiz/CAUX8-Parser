@@ -1,5 +1,28 @@
 该仓库包含将模拟coderunner问题的Python对象导出至moodle xml格式的脚本
 
+# 使用方法
+**把问题转换成question.py中提供的question对象,然后调用export(question)函数(未实现)即可得到对应Moodle xml。**
+
+## 对question.py中对象的说明
+question对象表示一个coderunner问题,对于其中的任何字段以及字典:
+1. 若初始值不为None,则该字段(或键值对)是必须的,并且已经被设定为默认值。
+2. 若初始值为None,则该字段(或键值对)是可选的。
+3. 若初始值为tag对象或text对象,或者嵌套的tag(text())对象,则其必须被设定为对应的同种对象。
+4. 如果在注释中提到“可选的值定义与枚举类中”,则该字段的值必须是枚举类中的值。如:
+   ```python
+   # @var string The coderunner type.
+   # coderunner类型
+   # 可选的类型位于枚举类中
+   'coderunnertype': None
+   ```
+   ```python
+   from question import question
+   from enum import coderunnertype
+   q = question()
+   q.attr["coderunnertype"] = coderunnertype.cpp_function
+   ```
+
+
 # 有关导入问题的函数
 
 xml导出的入口位于question/bank/exporttoxml/exportone.php中  
