@@ -1,7 +1,7 @@
 该仓库包含将模拟coderunner问题的Python对象导出至moodle xml格式的脚本
 
 # 使用方法
-**把问题转换成question.py中提供的question对象,然后调用export(question)函数(未实现)即可得到对应Moodle xml。**
+**把问题转换成question.py中提供的question对象,然后调用export中的导出函数即可得到对应Moodle xml。**
 
 ## 对question.py中对象的说明
 question对象表示一个coderunner问题,对于其中的任何字段以及字典:

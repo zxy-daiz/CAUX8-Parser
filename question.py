@@ -6,10 +6,10 @@ class question:
             "type":"coderunner"
         }
 
-        self.header: dict = {
+        self.header: dict[str,str|tag|None] = {
             # @var string question name.
             # 问题名称
-            "name":text(),
+            "name":tag(text()),
 
             # @var string question text.
             # 问题文本
@@ -32,11 +32,7 @@ class question:
             "penalty":None,
         }
 
-        # @var boolean whether this question uses a combinator template.
-        # 是否使用组合模板
-        self.iscombinatortemplate = "0"
-
-        self.extra: dict = {
+        self.extra: dict[str,str|tag|None] = {
             # @var bool True for All-or-nothing grading
             # 全或无评分
             'allornothing': "1",
@@ -219,7 +215,8 @@ class question:
             'prototypeextra': None
         }
 
-        self.testcases:list[testcase] = []
+        # 使用字典类型是为了使导出函数能够不要判断类型，这个字典只要求每个不同测试用例的key不同
+        self.testcases:dict[str,testcase] = {}
 
 class testcase:
     def __init__(self):
@@ -244,20 +241,20 @@ class testcase:
 
         # @var string The code to be tested.
         # 要测试的代码
-        self.testcode = text()
+        self.testcode = tag(text())
 
         # @var string The standard input for the test.
         # 测试的标准输入
-        self.stdin = text()
+        self.stdin = tag(text())
 
         # @var string The expected output of the test.
         # 预期输出
-        self.expected = text()
+        self.expected = tag(text())
 
         # @var string Extra data for the test.
         # 测试的额外数据
-        self.extra = text()
+        self.extra = tag(text())
 
         # @var string Whether to display the test case ("SHOW" or "HIDE").
         # 是否显示测试用例 ("SHOW" 或 "HIDE")
-        self.display = text("SHOW")
+        self.display = tag(text("SHOW"))
