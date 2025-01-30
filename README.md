@@ -17,7 +17,7 @@ question对象表示一个coderunner问题,对于其中的任何字段以及字�
    ```
    ```python
    from question import question
-   from enum import coderunnertype
+   from util import coderunnertype
    q = question()
    q.attr["coderunnertype"] = coderunnertype.cpp_function
    ```
