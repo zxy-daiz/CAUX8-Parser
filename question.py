@@ -223,20 +223,20 @@ class testcase:
         self.attr: dict = {
             # @var float The mark for this test case.
             # 该测试用例的分数
-            "mark": 1.0,
+            "mark": "1.0",
 
             # @var int Whether to hide the rest of the tests if this one fails (0 or 1).
             # 如果此测试失败，是否隐藏其余测试 (0 或 1)
-            "hiderestiffail": 0,
+            "hiderestiffail": "0",
 
             # @var int The type of the test.
             # 测试类型
             # 可选的值位于枚举类中
-            "testtype": 0,
+            "testtype": "0",
 
             # @var int Whether to use this test case as an example (0 or 1).
             # 是否将此测试用例用作示例 (0 或 1)
-            "useasexample": 0
+            "useasexample": "0"
         }
 
         # @var string The code to be tested.
