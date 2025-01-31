@@ -9,6 +9,7 @@ class question:
         self.header: dict[str,str|tag|None] = {
             # @var string question name.
             # 问题名称
+            # ⚠️ 重要:该选项必填！
             "name":tag(text()),
 
             # @var string question text.
@@ -29,13 +30,15 @@ class question:
 
             # @var number penalty factor of this question.
             # 惩罚因子
-            "penalty":None,
+            # 编者改为0
+            "penalty":"0",
         }
 
         self.extra: dict[str,str|tag|None] = {
             # @var bool True for All-or-nothing grading
             # 全或无评分
-            'allornothing': "1",
+            # 编者改:默认值为1,编者改为0。一般不开,要用时手动开。
+            'allornothing': "0",
 
             # @var int Precheck for the question.
             #  0 = 'disable': no pretest button available,
@@ -72,11 +75,11 @@ class question:
 
             # @var ?bool True if a combinator template is being used.
             # 是否使用组合模板
-            'iscombinatortemplate': "null",
+            'iscombinatortemplate': "0",
 
             # @var string The question template.
             # 问题模板
-            'template': "null",
+            'template': "", #该项如果不为空字符串,则会导致“定制”选项被勾选，导致一系列评分问题
 
             # @var ?string The template parameters language.
             # 模板参数语言
@@ -88,11 +91,11 @@ class question:
 
             # @var string The evaluated template parameters (JSON).
             # 评估的模板参数 (JSON)
-            'templateparamsevald': "null",
+            'templateparamsevald': "",
 
             # @var ?string The parameters to pass to the UI plugin
             # 传递给UI插件的参数
-            'uiparameters': "null",
+            'uiparameters': "",
 
             # @var int Hide check. Non-zero to hide the Check button.
             # 隐藏检查按钮
@@ -114,6 +117,7 @@ class question:
             # @var string The coderunner type.
             # coderunner类型
             # 可选的类型位于枚举类中
+            # ⚠️ 重要:该选项必填！必须手动指定该字段,否则导入后无法判题。
             'coderunnertype': None,
 
             # @var string The prototype type.
@@ -178,7 +182,7 @@ class question:
 
             # @var bool The hoisted template parameters.
             # 提升的模板参数
-            'hoisttemplateparams': None,
+            'hoisttemplateparams': None, #似乎需要设为0
 
             # @var ?int True if all question fields need Twig expansion.
             # 是否需要Twig扩展所有问题字段
@@ -194,7 +198,8 @@ class question:
 
             # @var ?int Max allowed file size (bytes)
             # 最大允许文件大小 (字节)
-            'maxfilesize': None,
+            # 编者设为1M
+            'maxfilesize': "1024000",
 
             # @var ?string Allowed file names (regular expression)
             # 允许的文件名 (正则表达式)
@@ -208,6 +213,7 @@ class question:
             # Not if display feedback is set to 2.
             # 设置为0或1, 显示反馈 (结果表). 如果显示反馈设置为2, 则不显示
             # 可选的值定义与枚举类中
+            # ⚠️ 重要:该选项必填！
             'displayfeedback': None,
 
             # @var ?string Extra data for use by prototype or customised code.

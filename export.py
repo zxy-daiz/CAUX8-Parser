@@ -50,7 +50,6 @@ def __export_question_to_xml(q: question) -> Element:
         if elem.tag not in ["testcases"]:
             for sub_elem in elem.findall("*"):
                 trimmed_xml.append(sub_elem)
-                print(sub_elem.tag)
         else:
             trimmed_xml.append(elem)
 
@@ -81,7 +80,7 @@ def __export_dict_to_xml(key: str, d: dict) -> Element:
 
     return root
 
-def __build_node(key: str, value) -> Element:
+def __build_node(key: str, value) -> Element | None:
     """
     将一个键值对转换为xml节点
     :param key: 键
@@ -102,8 +101,8 @@ def __build_node(key: str, value) -> Element:
             e = None
     elif isinstance(value, testcase):
         e = __export_dict_to_xml("testcase", vars(value))
-    elif not value:
-        e = Element(key)
     else:
         e = None
+        if value is not None:
+            print(f"[WARN]无法识别的键值对类型:({key},{value})")
     return e
