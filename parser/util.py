@@ -1,6 +1,5 @@
 from xml.etree.ElementTree import Element
 
-
 # tag表示单个xml节点
 class tag:
     def __init__(self, value=None, attr=None):

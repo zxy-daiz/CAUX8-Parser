@@ -1,1 +1,4 @@
 .idea
+
+# for unit tests
+/tests/hello_world.xml

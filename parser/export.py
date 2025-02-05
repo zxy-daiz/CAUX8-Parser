@@ -2,8 +2,8 @@ import os.path
 from xml.dom.minidom import parseString
 from xml.etree.ElementTree import Element, tostring
 
-from question import question, testcase
-from util import text, tag
+from parser.question import question, testcase
+from parser.util import text, tag
 
 def export_single_question_to(filename:str,q:question) -> None:
     """

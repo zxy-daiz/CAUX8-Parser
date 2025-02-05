@@ -1,4 +1,4 @@
-from util import text, tag, coderunnertype, feedback
+from parser.util import text, tag, coderunnertype, feedback
 
 # 含有"⚠️"注释的字段建议填写
 
