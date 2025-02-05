@@ -7,16 +7,14 @@
 # 项目结构
 ```text
 CAUX8-Parser
-|   export.py   # 导出模块
-    |   export_to(str,list[question]) -> None: 
-                # 传入一个question的列表,写入导出结果到给定文件
-    |   export_single_question_to(str,question) -> None: 
-                # 同上,导出单一question对象
-|   main.py
-|   question.py # 定义了可以用于导出的类moodle-question对象
-|   README.md
-|   test_export.py
-|   util.py     # 工具类与枚举类
+|---export.py   # 导出模块
+|       export_to(str,list[question]) -> None: 
+|               # 传入一个question的列表,写入导出结果到给定文件
+|       export_single_question_to(str,question) -> None: 
+|               # 同上,导出单一question对象
+|---main.py
+|---question.py # 定义了可以用于导出的类moodle-question对象
+|---util.py     # 工具类与枚举类
 |
 \---ext_fmt     # 扩展格式导出模块,支持fps和一本通等格式
 |       fps_xml.py
