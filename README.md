@@ -40,8 +40,8 @@ question对象表示一个coderunner问题,对于其中的任何字段以及字�
    'coderunnertype': None
    ```
    ```python
-   from question import question
-   from util import coderunnertype
+   from parser.question import question
+   from parser.util import coderunnertype
    q = question()
    q.attr["coderunnertype"] = coderunnertype.cpp_function
    ```

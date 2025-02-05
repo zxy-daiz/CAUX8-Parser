@@ -1,8 +1,8 @@
 import unittest
 
-from export import __export_question_to_xml, export_single_question_to
-from question import question, testcase
-from util import text, tag, coderunnertype, testtype, feedback, giveup
+from parser.export import export_single_question_to
+from parser.question import question, testcase
+from parser.util import text, tag, coderunnertype, testtype, feedback, giveup
 
 
 class TestExport(unittest.TestCase):
@@ -53,7 +53,7 @@ class TestExport(unittest.TestCase):
 
         q.testcases = {"0":t1}
 
-        export_single_question_to( "hello_world.xml",q)
+        export_single_question_to("hello_world.xml", q)
 
 
 if __name__ == '__main__':

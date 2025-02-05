@@ -2,9 +2,9 @@ import xml.etree.ElementTree as ET
 from glob import glob
 from os.path import join
 
-from export import export_to
-from question import question, testcase
-from util import testtype, tag, text
+from parser.export import export_to
+from parser.question import question, testcase
+from parser.util import testtype, tag, text
 
 
 def bootstrap(folder_path:str) -> None:
