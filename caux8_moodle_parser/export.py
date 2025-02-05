@@ -2,8 +2,8 @@ import os.path
 from xml.dom.minidom import parseString
 from xml.etree.ElementTree import Element, tostring
 
-from parser.question import question, testcase
-from parser.util import text, tag
+from .question import question, testcase
+from .util import text, tag
 
 def export_single_question_to(filename:str,q:question) -> None:
     """
@@ -32,8 +32,8 @@ def export_to(filename:str,questions:list[question]) -> None:
         with open(filename,"wb") as f:
             f.write(pretty_xml)
             f.close()
-    except:
-        print("[ERROR]写入文件失败")
+    except Exception as e:
+        print(f"[ERROR]写入文件失败,{e}")
 
 
 def __export_question_to_xml(q: question) -> Element:

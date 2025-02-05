@@ -1,9 +1,8 @@
 import os
 import unittest
-
-from parser.export import export_single_question_to, export_to
-from parser.question import question, testcase
-from parser.util import text, tag, coderunnertype, testtype, feedback, giveup
+from caux8_moodle_parser.export import export_single_question_to, export_to
+from caux8_moodle_parser.question import question, testcase
+from caux8_moodle_parser.util import text, tag, coderunnertype, testtype, feedback, giveup
 
 
 class TestExport(unittest.TestCase):
@@ -58,7 +57,7 @@ class TestExport(unittest.TestCase):
         return q
 
     def test_single_question(self):
-        path = "hello_world.xml"
+        path = os.path.join(os.getcwd(), "tests", "hello_world.xml")
         q = self.build_question()
 
         export_single_question_to(path, q)
@@ -76,7 +75,7 @@ class TestExport(unittest.TestCase):
         q2 = self.build_question()
         q2.header["name"] = tag(text("Hello World 2"))
 
-        path = "hello_world.xml"
+        path = os.path.join(os.getcwd(), "tests", "hello_world.xml")
         export_to(path, [q1, q2])
 
         # 判断文件是否存在

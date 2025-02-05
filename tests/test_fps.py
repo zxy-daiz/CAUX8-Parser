@@ -1,12 +1,11 @@
 import os
 import unittest
 
-from parser import parse_fps
-
+from caux8_moodle_parser import parse_fps
 
 class TestExport(unittest.TestCase):
     def test_sample_question(self):
-        path = "sample/fps"
+        path = os.path.join(os.getcwd(),"tests","sample","fps")
         export_path = os.path.join(path,"EXPORT.xml")
 
         parse_fps(path)
@@ -18,8 +17,6 @@ class TestExport(unittest.TestCase):
 
         # 删除文件
         os.remove(export_path)
-
-
 
 if __name__ == '__main__':
     unittest.main()
