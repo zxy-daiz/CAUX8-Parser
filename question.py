@@ -1,4 +1,6 @@
-from util import text, tag
+from util import text, tag, coderunnertype, feedback
+
+# 含有"⚠️"注释的字段建议填写
 
 class question:
     def __init__(self):
@@ -10,11 +12,11 @@ class question:
             # @var string question name.
             # 问题名称
             # ⚠️ 重要:该选项必填！
-            "name":tag(text()),
+            "name":tag(text()), #⚠️
 
             # @var string question text.
             # 问题文本
-            "questiontext":tag(text(),{"format":"html"}),
+            "questiontext":tag(text(),{"format":"html"}), #⚠️
 
             # @var string question general feedback.
             # 问题的一般反馈
@@ -26,7 +28,9 @@ class question:
 
             # @var float what this question is marked out of, by default.
             # 默认分数
-            "defaultmark":None,
+            # fix:虽然在php源码中该字段为defaultmark,但导入时似乎由于兼容性原因识别的是defaultgrade
+            # 该选项代表该问题的总分。
+            "defaultgrade":"100", #⚠️
 
             # @var number penalty factor of this question.
             # 惩罚因子
@@ -116,9 +120,8 @@ class question:
 
             # @var string The coderunner type.
             # coderunner类型
-            # 可选的类型位于枚举类中
-            # ⚠️ 重要:该选项必填！必须手动指定该字段,否则导入后无法判题。
-            'coderunnertype': None,
+            # 可选的类型位于枚举类中,默认为多语言
+            'coderunnertype': coderunnertype.multilanguage, #⚠️
 
             # @var string The prototype type.
             # 原型类型
@@ -166,11 +169,11 @@ class question:
 
             # @var ?double The allowed CPU time (null unless explicitly set).
             # 允许的CPU时间 (除非明确设置, 否则为null)
-            'cputimelimitsecs': None,
+            'cputimelimitsecs': None, #⚠️
 
             # @var ?int The allowed memory in MB (null unless explicitly set).
             # 允许的内存 (MB) (除非明确设置, 否则为null)
-            'memlimitmb': None,
+            'memlimitmb': None, #⚠️
 
             # @var string The JSON string used to specify the sandbox parameters.
             # 用于指定沙箱参数的JSON字符串
@@ -213,7 +216,6 @@ class question:
             # Not if display feedback is set to 2.
             # 设置为0或1, 显示反馈 (结果表). 如果显示反馈设置为2, 则不显示
             # 可选的值定义与枚举类中
-            # ⚠️ 重要:该选项必填！
             'displayfeedback': None,
 
             # @var ?string Extra data for use by prototype or customised code.
@@ -222,14 +224,16 @@ class question:
         }
 
         # 使用字典类型是为了使导出函数能够不要判断类型，这个字典只要求每个不同测试用例的key不同
-        self.testcases:dict[str,testcase] = {}
+        self.testcases:dict[str,testcase] = {} #⚠️
 
 class testcase:
     def __init__(self):
         self.attr: dict = {
             # @var float The mark for this test case.
             # 该测试用例的分数
-            "mark": "1.0",
+            # 经测试，该字段表示该测试用例占所有分数的权重
+            # 如果有多个测试用例，则通过该测试用例的分数=该测试用例mark值/所有测试用例mark值的总和
+            "mark": "1.0", #⚠️
 
             # @var int Whether to hide the rest of the tests if this one fails (0 or 1).
             # 如果此测试失败，是否隐藏其余测试 (0 或 1)
@@ -242,7 +246,7 @@ class testcase:
 
             # @var int Whether to use this test case as an example (0 or 1).
             # 是否将此测试用例用作示例 (0 或 1)
-            "useasexample": "0"
+            "useasexample": "0" #⚠️
         }
 
         # @var string The code to be tested.
@@ -251,11 +255,11 @@ class testcase:
 
         # @var string The standard input for the test.
         # 测试的标准输入
-        self.stdin = tag(text())
+        self.stdin = tag(text()) #⚠️
 
         # @var string The expected output of the test.
         # 预期输出
-        self.expected = tag(text())
+        self.expected = tag(text()) #⚠️
 
         # @var string Extra data for the test.
         # 测试的额外数据
