@@ -5,7 +5,7 @@ from xml.etree.ElementTree import Element, tostring
 from question import question, testcase
 from util import text, tag
 
-def export_single_question_to(filename:str,q:question):
+def export_single_question_to(filename:str,q:question) -> None:
     """
     将一个问题导出到给定文件中
     """

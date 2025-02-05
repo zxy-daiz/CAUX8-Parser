@@ -1,7 +1,33 @@
 该仓库包含将模拟coderunner问题的Python对象导出至moodle xml格式的脚本
 
 # 使用方法
-**把问题转换成question.py中提供的question对象,然后调用export中的导出函数即可得到对应Moodle xml。**
+**把问题转换成question.py中定义的question对象,填入重要的字段,
+然后调用export中的导出函数即可得到对应Moodle xml。**
+
+# 项目结构
+```text
+CAUX8-Parser
+|   export.py   # 导出模块
+    |   export_to(str,list[question]) -> None: 
+                # 传入一个question的列表,写入导出结果到给定文件
+    |   export_single_question_to(str,question) -> None: 
+                # 同上,导出单一question对象
+|   main.py
+|   question.py # 定义了可以用于导出的类moodle-question对象
+|   README.md
+|   test_export.py
+|   util.py     # 工具类与枚举类
+|
+\---ext_fmt     # 扩展格式导出模块,支持fps和一本通等格式
+|       fps_xml.py
+|       ybt.py
+|       *.py    # 为各种格式的导出模块
+|       |   bootstrap(str) -> None: 
+                # 给定含给定格式的题目的文件夹,导出其中所有的题目至同目录下的EXPORT.xml
+```
+
+
+# 一些笔记
 
 ## 对question.py中对象的说明
 question对象表示一个coderunner问题,对于其中的任何字段以及字典:
@@ -22,13 +48,14 @@ question对象表示一个coderunner问题,对于其中的任何字段以及字�
    q.attr["coderunnertype"] = coderunnertype.cpp_function
    ```
 
+## 有关moodlePHP源码
 
-# 有关导入问题的函数
+### 有关导入问题的函数
 
 xml导出的入口位于question/bank/exporttoxml/exportone.php中  
 导入问题的入口位于question/importquestions/import.php中,调用的importpreprocess()是qformat_default中的默认方法
 
-# 关于IDE无法跳转的解决方案
+### 关于IDE无法跳转的解决方案
 
 这些文件使用了大量的动态加载类与函数,如
 ```php
