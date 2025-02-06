@@ -3,6 +3,10 @@
 # 使用方法
 安装该Python包:
 ```shell
+pip install caux8_moodle_parser
+```
+或手动安装:
+```shell
 pip install git+https://github.com/YuZiOuO/CAUX8-Parser.git
 ```
 接下来有两种方法：
