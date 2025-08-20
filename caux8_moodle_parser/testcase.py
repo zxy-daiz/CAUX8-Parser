@@ -66,7 +66,7 @@ class testcases_request_body:
         }
 
         # 映射测试用例字段（处理索引0-4）
-        for i in range(5):
+        for i in range(self.MAX_TEST_CASES):
             form_data[f"caseid[{i}]"] = getattr(self, f"caseid_{i}")
             form_data[f"subgrade[{i}]"] = getattr(self, f"subgrade_{i}")
             form_data[f"input[{i}]"] = getattr(self, f"input_{i}")
