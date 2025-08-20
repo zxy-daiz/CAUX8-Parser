@@ -44,7 +44,14 @@ class testcases_request_body:
     input_4: str = ""
     output_4: str = ""
     feedback_4: str = ""
-
+    # 测试用例列表，默认5个
+    testcases: List[TestCase] = field(default_factory=lambda: [
+        TestCase(subgrade=1.0, input="1 2", output="3"),  # 第一个测试用例有默认值
+        TestCase(),
+        TestCase(),
+        TestCase(),
+        TestCase()
+    ])
     def to_form_data(self) -> dict:
         """
         转换为表单数据字典，用于发送POST请求
