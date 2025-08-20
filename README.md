@@ -1,8 +1,18 @@
-该仓库包含将模拟coderunner问题的Python对象导出至moodle xml格式的脚本
+该仓库包含将模拟coderunner问题的Python对象导出至"moodle xml"格式的脚本
 
 # 使用方法
-**把问题转换成question.py中定义的question对象,填入重要的字段,
-然后调用export中的导出函数即可得到对应Moodle xml。**
+安装该Python包:
+```shell
+pip install caux8_moodle_parser
+```
+或手动安装:
+```shell
+pip install git+https://github.com/YuZiOuO/CAUX8-Parser.git
+```
+接下来有两种方法：
+1. 已经支持的格式:调用parse_xxx()函数,填入问题所在的文件夹,
+该函数会将里面所有题目导出至同目录下的EXPORT.xml中
+2. 手动导入:手动构造question对象,填入重要的字段, 然后调用导出函数export_to()
 
 # 项目结构
 ```text
@@ -165,5 +175,3 @@ public function try_importing_using_qtypes($data, $question = null, $extra = nul
 6. testcases还可以包含以下字段(在testcases标签下,对于所有testcase)
    - 可选的file标签,将被导入到datafile字段,必须为array才可以被导入
    - 可选的anwserfiles标签,其子标签file的内容将被导入至sampleanswerattachments字段中
-
-## 可能存在的问题
