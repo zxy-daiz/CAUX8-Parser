@@ -1,54 +1,54 @@
-class TestCaseUploadRequest:
+class testcases_request_body:
     """
-    测试用例上传请求体的Python类表示
-    基于抓取到的表单数据结构设计
+    测试用例上传请求体类
+    对应抓取到的表单数据格式
     """
-    def __init__(self, problem_id, sesskey):
-        # 基础配置
-        self.boundary_repeats = 5
-        self.id = problem_id  # 题目ID
-        self.sesskey = sesskey  # 会话密钥
-        self._qf__testcase_form = 1
-        self.submitbutton = "保存更改"
-        
-        # 初始化5个测试用例位置
-        self.test_cases = [
-            {"caseid": -1, "subgrade": 0.0, "input": "", "output": "", "feedback": ""},
-            {"caseid": -1, "subgrade": 0.0, "input": "", "output": "", "feedback": ""},
-            {"caseid": -1, "subgrade": 0.0, "input": "", "output": "", "feedback": ""},
-            {"caseid": -1, "subgrade": 0.0, "input": "", "output": "", "feedback": ""},
-            {"caseid": -1, "subgrade": 0.0, "input": "", "output": "", "feedback": ""}
-        ]
-    
-    def set_test_case(self, index, input_data, output_data, subgrade=1.0, feedback="", caseid=-1):
+    # 基础参数
+    boundary_repeats: int = 5
+    id: int = 38222  # 题目ID，从页面或上游请求获取
+    sesskey: str = "dKBfkNkji1"  # 登录会话密钥，动态获取
+    _qf__testcase_form: int = 1
+    submitbutton: str = "保存更改"
+
+    # 测试用例1（索引0）
+    caseid_0: int = -1  # 测试用例ID，-1表示新增
+    subgrade_0: float = 1.0  # 分值权重
+    input_0: str = "1 2"  # 输入数据
+    output_0: str = "3"  # 预期输出
+    feedback_0: str = ""  # 反馈信息
+
+    # 测试用例2（索引1）
+    caseid_1: int = -1
+    subgrade_1: float = 0.0
+    input_1: str = ""
+    output_1: str = ""
+    feedback_1: str = ""
+
+    # 测试用例3（索引2）
+    caseid_2: int = -1
+    subgrade_2: float = 0.0
+    input_2: str = ""
+    output_2: str = ""
+    feedback_2: str = ""
+
+    # 测试用例4（索引3）
+    caseid_3: int = -1
+    subgrade_3: float = 0.0
+    input_3: str = ""
+    output_3: str = ""
+    feedback_3: str = ""
+
+    # 测试用例5（索引4）
+    caseid_4: int = -1
+    subgrade_4: float = 0.0
+    input_4: str = ""
+    output_4: str = ""
+    feedback_4: str = ""
+
+    def to_form_data(self) -> dict:
         """
-        设置指定索引的测试用例
-        
-        参数:
-            index: 测试用例索引(0-4)
-            input_data: 输入数据
-            output_data: 输出数据
-            subgrade: 该测试用例的分值权重
-            feedback: 反馈信息
-            caseid: 测试用例ID，默认为-1表示新用例
-        """
-        if 0 <= index < 5:
-            self.test_cases[index] = {
-                "caseid": caseid,
-                "subgrade": subgrade,
-                "input": input_data,
-                "output": output_data,
-                "feedback": feedback
-            }
-        else:
-            raise ValueError("索引必须在0-4之间")
-    
-    def to_form_data(self):
-        """
-        将类转换为表单数据格式，用于发送POST请求
-        
-        返回:
-            字典形式的表单数据
+        转换为表单数据字典，用于发送POST请求
+        将类属性映射为原始请求中的字段格式（如caseid_0 -> caseid[0]）
         """
         form_data = {
             "boundary_repeats": self.boundary_repeats,
@@ -57,37 +57,15 @@ class TestCaseUploadRequest:
             "_qf__testcase_form": self._qf__testcase_form,
             "submitbutton": self.submitbutton
         }
-        
-        # 添加测试用例相关字段
+
+        # 映射测试用例字段（处理索引0-4）
         for i in range(5):
-            form_data[f"caseid[{i}]"] = self.test_cases[i]["caseid"]
-            form_data[f"subgrade[{i}]"] = self.test_cases[i]["subgrade"]
-            form_data[f"input[{i}]"] = self.test_cases[i]["input"]
-            form_data[f"output[{i}]"] = self.test_cases[i]["output"]
-            form_data[f"feedback[{i}]"] = self.test_cases[i]["feedback"]
-        
+            form_data[f"caseid[{i}]"] = getattr(self, f"caseid_{i}")
+            form_data[f"subgrade[{i}]"] = getattr(self, f"subgrade_{i}")
+            form_data[f"input[{i}]"] = getattr(self, f"input_{i}")
+            form_data[f"output[{i}]"] = getattr(self, f"output_{i}")
+            form_data[f"feedback[{i}]"] = getattr(self, f"feedback_{i}")
+
         return form_data
 
 
-# 使用示例
-if __name__ == "__main__":
-    # 创建请求实例，传入题目ID和会话密钥
-    upload_request = TestCaseUploadRequest(problem_id=38222, sesskey="dKBfkNkji1")
-    
-    # 设置第一个测试用例
-    upload_request.set_test_case(
-        index=0,
-        input_data="1 2",
-        output_data="3",
-        subgrade=1.0
-    )
-    
-    # 可以继续设置其他测试用例
-    # upload_request.set_test_case(index=1, input_data="...", output_data="...")
-    
-    # 转换为表单数据
-    form_data = upload_request.to_form_data()
-    
-    # 打印结果查看
-    for key, value in form_data.items():
-        print(f"{key}: {value}")
